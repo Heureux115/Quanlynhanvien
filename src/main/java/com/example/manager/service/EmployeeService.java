@@ -9,7 +9,10 @@ public class EmployeeService {
         double luongNgay = salary.getLuongcoban() / 26.0;
         double phatNgayNghi = luongNgay * 0.5;
         double tong = (luongNgay * salary.getNgaylam()) - (salary.getNgaynghi() * phatNgayNghi);
-        tong -= salary.getThue();
+        if (tong < 0) tong = 0;
+        double thuePhanTram = salary.getThue();
+        tong = tong - (tong * thuePhanTram);
         return tong;
     }
+
 }

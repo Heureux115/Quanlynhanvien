@@ -1,6 +1,8 @@
 package com.example.manager.nhanvien;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,21 +10,22 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
     private String name;
     private int age;
     private String gender;
     private String donvicongtac;
     private double hesoluong;
-    private String chucvu;    //cong chuc hay quan ly
+    private String chucvu;//cong chuc hay quan ly
+    private String password;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<Salary> salaries;
+    private List<Salary> salaries = new ArrayList<>();
 
     public Employee() {
     }
 
-    public Employee(String id, String name, int age, String gender, String donvicongtac, double hesoluong, String chucvu) {
+    public Employee(long id, String name, int age, String gender, String donvicongtac, double hesoluong, String chucvu, String password) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -30,12 +33,13 @@ public class Employee {
         this.donvicongtac = donvicongtac;
         this.hesoluong = hesoluong;
         this.chucvu = chucvu;
+        this.password = password;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getName() {
@@ -80,5 +84,7 @@ public class Employee {
     public void setSalaries(List<Salary> salaries) {
         this.salaries = salaries;
     }
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
 }
 

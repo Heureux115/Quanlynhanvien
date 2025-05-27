@@ -29,8 +29,11 @@ public class SalaryController {
     }
 
     @GetMapping("/calculate/{salaryId}")
-    public double calculateSalary(@PathVariable int salaryId) {
+    public double calculateSalary(@PathVariable long salaryId) {
         Salary salary = salaryRepository.findById(salaryId).orElseThrow();
         return employeeService.tinhLuong(salary);
     }
+
+
+
 }

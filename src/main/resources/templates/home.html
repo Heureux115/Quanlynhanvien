@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+</head>
+<body>
+<h1>Danh sách nhân viên</h1>
+<ul id="employeeList"></ul>
+
+<script>
+    fetch("http://localhost:8080/api/employees")
+        .then(response => response.json())
+        .then(data => {
+            const ul = document.getElementById("employeeList");
+            data.forEach(emp => {
+                const li = document.createElement("li");
+                li.innerText = `ID: ${emp.eid}, Tên: ${emp.ename}, Email: ${emp.email}`;
+                ul.appendChild(li);
+            });
+        });
+</script>
+</body>
+</html>
