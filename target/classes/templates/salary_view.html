@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bảng Lương Nhân Viên</title>
+    <style>
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #888;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;">BẢNG LƯƠNG NHÂN VIÊN</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Họ tên</th>
+        <th>Ngày làm</th>
+        <th>Ngày nghỉ</th>
+        <th>Lương cơ bản</th>
+        <th>Thuế (%)</th>
+        <th>Hệ số lương </th>
+        <th>Lương thực lĩnh</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="salary : ${salaries}">
+        <td th:text="${salary.employee.name}">Tên</td>
+        <td th:text="${salary.ngaylam}">22</td>
+        <td th:text="${salary.ngaynghi}">2</td>
+        <td th:text="${#numbers.formatDecimal(salary.luongcoban, 0, 0)}">8.000.000</td>
+        <td th:text="${(salary.thue * 100).intValue()} + ' %'">10 %</td>
+        <td th:text="${salary.hesoluong}">3</td>
+        <td th:text="${luongMap.containsKey(salary.id) ? #numbers.formatDecimal(luongMap.get(salary.id), 0, 0) : 'Chưa có'}">7.200.000</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="back-home">
+    <a th:href="@{/}">Quay lại trang chính</a>
+</div>
+</body>
+</html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping
     public Employee addEmployee(@RequestBody Employee employee) {
@@ -68,7 +72,6 @@ public class EmployeeController {
         employee.setAge(employeeDetails.getAge());
         employee.setGender(employeeDetails.getGender());
         employee.setDonvicongtac(employeeDetails.getDonvicongtac());
-        employee.setHesoluong(employeeDetails.getHesoluong());
         employee.setChucvu(employeeDetails.getChucvu());
         Employee updatedEmployee = employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);

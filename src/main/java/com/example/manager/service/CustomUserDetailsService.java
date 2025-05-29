@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return User.builder()
                 .username(employee.getName())
-                .password(employee.getPassword()) // nhớ password phải được mã hóa (xem phần sau)
+                .password(employee.getPassword()) // nhớ password phải được mã hóa
                 .roles(employee.getChucvu()) // Vai trò (ROLE_QuanLy hoặc ROLE_NhanVien)
                 .build();
     }

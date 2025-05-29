@@ -1,25 +1,17 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Employee List</title>
+    <title>Trang chủ</title>
+    <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Danh sách nhân viên</h1>
-<ul id="employeeList"></ul>
+<h1>Chào mừng đến với hệ thống Quản lý Nhân viên</h1>
 
-<script>
-    fetch("http://localhost:8080/api/employees")
-        .then(response => response.json())
-        .then(data => {
-            const ul = document.getElementById("employeeList");
-            data.forEach(emp => {
-                const li = document.createElement("li");
-                li.innerText = `ID: ${emp.eid}, Tên: ${emp.ename}, Email: ${emp.email}`;
-                ul.appendChild(li);
-            });
-        });
-</script>
+<ul>
+    <li><a th:href="@{/login}">Đăng xuất</a></li>
+    <li><a th:href="@{/employees/edit}">Sửa thông tin nhân viên</a></li>
+    <li><a th:href="@{/salaries/view}">Xem bảng lương</a></li>
+</ul>
 </body>
 </html>
+

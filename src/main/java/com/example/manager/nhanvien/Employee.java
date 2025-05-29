@@ -15,7 +15,6 @@ public class Employee {
     private int age;
     private String gender;
     private String donvicongtac;
-    private double hesoluong;
     private String chucvu;//cong chuc hay quan ly
     private String password;
 
@@ -25,13 +24,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String name, int age, String gender, String donvicongtac, double hesoluong, String chucvu, String password) {
+    public Employee(long id, String name, int age, String gender, String donvicongtac, String chucvu, String password) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.donvicongtac = donvicongtac;
-        this.hesoluong = hesoluong;
         this.chucvu = chucvu;
         this.password = password;
     }
@@ -65,12 +63,6 @@ public class Employee {
     }
     public void setDonvicongtac(String donvicongtac) {
         this.donvicongtac = donvicongtac;
-    }
-    public double getHesoluong() {
-        return hesoluong;
-    }
-    public void setHesoluong(double hesoluong) {
-        this.hesoluong = hesoluong;
     }
     public String getChucvu() {
         return chucvu;

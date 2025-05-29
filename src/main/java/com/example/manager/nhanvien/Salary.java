@@ -12,8 +12,9 @@ public class Salary {
 
     private int ngaylam;
     private int ngaynghi;
-    private int luongcoban;
+    private int luongcoban; //theo ngay
     private double thue;
+    private double hesoluong;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -22,11 +23,12 @@ public class Salary {
     public Salary() {
     }
 
-    public Salary(int ngaylam, int ngaynghi, int luongcoban, double thue) {
+    public Salary(int ngaylam, int ngaynghi, int luongcoban, double thue, double hesoluong) {
         this.ngaylam = ngaylam;
         this.ngaynghi = ngaynghi;
         this.luongcoban = luongcoban;
         this.thue = thue;
+        this.hesoluong = hesoluong;
     }
 
     // Getters and setters
@@ -69,6 +71,9 @@ public class Salary {
     public void setThue(double thue) {
         this.thue = thue;
     }
+
+    public double getHesoluong() {return hesoluong;}
+    public void setHesoluong(double hesoluong) {this.hesoluong = hesoluong;}
 
     public Employee getEmployee() {
         return employee;

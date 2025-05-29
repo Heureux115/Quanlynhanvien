@@ -30,10 +30,8 @@ public class SalaryController {
 
     @GetMapping("/calculate/{salaryId}")
     public double calculateSalary(@PathVariable long salaryId) {
-        Salary salary = salaryRepository.findById(salaryId).orElseThrow();
+        Salary salary = salaryRepository.findById(salaryId)
+                .orElseThrow(() -> new RuntimeException("Salary not found with id " + salaryId));
         return employeeService.tinhLuong(salary);
     }
-
-
-
 }

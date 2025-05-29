@@ -20,6 +20,11 @@ public class SecurityConfig {
     private CustomUserDetailsService customUserDetailsService;
 
     @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
@@ -29,10 +34,6 @@ public class SecurityConfig {
                 )
                 .with(new FormLoginConfigurer<>(), form -> form
                         .loginPage("/login")       // custom login page
-                        .permitAll()
-                )
-                .with(new LogoutConfigurer<>(), logout -> logout
-                        .logoutUrl("/logout")
                         .permitAll()
                 );
 
