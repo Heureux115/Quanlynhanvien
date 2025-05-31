@@ -1,6 +1,6 @@
 package com.example.manager.repository;
 
-import com.example.manager.nhanvien.Employee;
+import com.example.manager.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

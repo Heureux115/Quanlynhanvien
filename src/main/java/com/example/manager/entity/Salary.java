@@ -1,4 +1,4 @@
-package com.example.manager.nhanvien;
+package com.example.manager.entity;
 
 import jakarta.persistence.*;
 

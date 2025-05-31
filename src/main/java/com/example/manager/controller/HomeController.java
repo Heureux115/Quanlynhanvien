@@ -15,8 +15,4 @@ public class HomeController {
     public String login() {
         return "login"; // return login.html
     }
-    @GetMapping("/employees/edit")
-    public String editEmployee() {
-        return "employee_edit";
-    }
 }

@@ -1,6 +1,6 @@
 package com.example.manager.service;
 
-import com.example.manager.nhanvien.Employee;
+import com.example.manager.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,44 +10,28 @@ import java.util.Collections;
 
 public class EmployeeUserDetails implements UserDetails {
 
-    private final Employee employee;
+    private final User user;
 
-    public EmployeeUserDetails(Employee employee) {
-        this.employee = employee;
+    public EmployeeUserDetails(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("Chucvu_" + employee.getChucvu().toUpperCase()));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getEmployee().getChucvu().toUpperCase()));
     }
 
     @Override
     public String getPassword() {
-        return employee.getPassword(); // bạn cần có trường password trong Employee
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return employee.getName(); // hoặc email nếu có
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return user.getUsername();
     }
 }

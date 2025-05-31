@@ -1,4 +1,4 @@
-package com.example.manager.nhanvien;
+package com.example.manager.entity;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,10 @@ public class Employee {
     private String gender;
     private String donvicongtac;
     private String chucvu;//cong chuc hay quan ly
-    private String password;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Salary> salaries = new ArrayList<>();
@@ -24,14 +27,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String name, int age, String gender, String donvicongtac, String chucvu, String password) {
-        this.id = id;
+    public Employee(String name, int age, String gender, String donvicongtac, String chucvu ) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.donvicongtac = donvicongtac;
         this.chucvu = chucvu;
-        this.password = password;
     }
 
     public long getId() {
@@ -67,8 +68,8 @@ public class Employee {
     public String getChucvu() {
         return chucvu;
     }
-    public void setChucvu(String loai) {
-        this.chucvu = loai;
+    public void setChucvu(String chucvu) {
+        this.chucvu = chucvu;
     }
     public List<Salary> getSalaries() {
         return salaries;
@@ -76,7 +77,7 @@ public class Employee {
     public void setSalaries(List<Salary> salaries) {
         this.salaries = salaries;
     }
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
+    public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
 }
 
