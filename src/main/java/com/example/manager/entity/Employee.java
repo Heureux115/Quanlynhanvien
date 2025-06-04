@@ -15,7 +15,7 @@ public class Employee {
     private int age;
     private String gender;
     private String donvicongtac;
-    private String chucvu;//cong chuc hay quan ly
+    private String chucvu;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

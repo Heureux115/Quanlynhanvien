@@ -20,7 +20,7 @@ public class ChangeUsernameController {
     @GetMapping("/change-username")
     public String showChangeUsernameForm(Model model) {
         model.addAttribute("newUsername", "");
-        return "change_username"; // Đặt tên đúng với file HTML
+        return "change_username";
     }
 
 

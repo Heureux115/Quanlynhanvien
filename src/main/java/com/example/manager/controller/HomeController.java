@@ -1,12 +1,9 @@
 package com.example.manager.controller;
 
 import com.example.manager.entity.Employee;
-import com.example.manager.entity.User;
 import com.example.manager.repository.EmployeeRepository;
 import com.example.manager.repository.UserRepository;
 import com.example.manager.service.EmployeeService;
-import com.example.manager.service.SalaryService;
-import com.example.manager.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,12 +29,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "home"; // return home.html
+        return "home";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login"; // return login.html
+        return "login";
     }
 
     @GetMapping("/view")

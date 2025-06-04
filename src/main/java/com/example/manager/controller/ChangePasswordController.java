@@ -23,7 +23,7 @@ public class ChangePasswordController {
 
     @GetMapping("/change")
     public String showChangePasswordForm() {
-        return "change_password"; // Trả về file change-password.html
+        return "change_password";
     }
 
     @PostMapping("/change")

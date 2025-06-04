@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,7 +80,6 @@ public class EmployeeController {
         return "employee_add";
     }
 
-    // API trả về tên nhân viên theo ID
     @GetMapping("/employeeName")
     @ResponseBody
     public Map<String, Object> getEmployeeName(@RequestParam Long employeeId) {

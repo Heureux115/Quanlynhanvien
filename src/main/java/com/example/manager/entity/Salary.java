@@ -31,7 +31,6 @@ public class Salary {
         this.hesoluong = hesoluong;
     }
 
-    // Getters and setters
     public long getId() {
         return id;
     }
