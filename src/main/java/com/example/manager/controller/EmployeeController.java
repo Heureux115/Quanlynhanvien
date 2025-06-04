@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @Controller
@@ -31,12 +34,6 @@ public class EmployeeController {
     @Autowired
     private SalaryService salaryService;
 
-    @GetMapping("/view")
-    public String showAllEmployees(Model model) {
-        List<Employee> employees = employeeService.getAllEmployees();
-        model.addAttribute("employees", employees);
-        return "employee_view";
-    }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
@@ -55,4 +52,48 @@ public class EmployeeController {
         model.addAttribute("employee", new Employee()); // reset form
         return "employee_add";
     }
+    @GetMapping("/update/salary")
+    public String showUpdateForm() {
+        return "salary_update";
+    }
+
+    @PostMapping("/update/salary")
+    public String addEmployee(@ModelAttribute Employee employee,
+                              @RequestParam String username,
+                              @RequestParam("hesoluong") double hesoluong,
+                              @RequestParam("thue") double thue,
+                              Model model) {
+        Employee savedEmployee = employeeService.saveEmployeeWithUser(employee, username);
+
+        Salary salary = new Salary();
+        salary.setEmployee(savedEmployee);
+        salary.setHesoluong(hesoluong);
+        salary.setThue(thue);
+
+        salary.setNgaylam(0);
+        salary.setNgaynghi(0);
+        salary.setLuongcoban(0);
+
+        salaryService.saveSalary(salary);
+
+        model.addAttribute("message", "Thêm nhân viên thành công");
+        model.addAttribute("employee", new Employee());
+        return "employee_add";
+    }
+
+    // API trả về tên nhân viên theo ID
+    @GetMapping("/employeeName")
+    @ResponseBody
+    public Map<String, Object> getEmployeeName(@RequestParam Long employeeId) {
+        Optional<Employee> empOpt = salaryService.findEmployeeById(employeeId);
+        Map<String, Object> result = new HashMap<>();
+        if (empOpt.isPresent()) {
+            result.put("exists", true);
+            result.put("name", empOpt.get().getName());
+        } else {
+            result.put("exists", false);
+        }
+        return result;
+    }
+
 }

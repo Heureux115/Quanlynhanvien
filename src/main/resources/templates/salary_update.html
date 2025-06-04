@@ -10,7 +10,7 @@
         document.getElementById("employeeName").innerText = "";
         return;
       }
-      fetch(`/salary/employeeName?employeeId=${employeeId}`)
+      fetch(`/employee/employeeName?employeeId=${employeeId}`)
               .then(response => response.json())
               .then(data => {
                 if (data.exists) {
@@ -34,12 +34,23 @@
   <span id="employeeName" style="margin-left: 10px; font-weight: bold; color: blue;"
         th:text="${employeeName}"></span>
   <br/><br/>
+
   <label>Số ngày làm:</label>
   <input type="number" name="ngaylam" required min="0" />
   <br/><br/>
+
   <label>Số ngày nghỉ:</label>
   <input type="number" name="ngaynghi" required min="0" />
   <br/><br/>
+
+  <label>Hệ số lương:</label>
+  <input type="number" step="0.01" name="hesoluong" required min="0" />
+  <br/><br/>
+
+  <label>Thuế (%):</label>
+  <input type="number" step="0.01" name="thue" required min="0" max="100" />
+  <br/><br/>
+
   <button type="submit">Cập nhật</button>
 </form>
 

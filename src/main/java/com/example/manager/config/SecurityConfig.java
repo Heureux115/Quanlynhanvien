@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")           // Trang login tùy chỉnh
+                        .loginPage("/login")
                         .failureUrl("/login?error")    // Khi sai username/password
                         .permitAll()
                 )
@@ -51,6 +51,11 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.sendRedirect("/?error");
+                        })
                 );
         return http.build();
     }

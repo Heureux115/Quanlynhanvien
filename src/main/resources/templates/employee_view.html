@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Danh Sách Nhân Viên</title>
@@ -28,6 +29,9 @@
 </head>
 <body>
 <h2 style="text-align: center;">Danh Sách NHÂN VIÊN</h2>
+<div th:if="${message}" style="text-align:center; color: green; font-weight: bold;">
+    <p th:text="${message}"></p>
+</div>
 <table>
     <thead>
     <tr>
@@ -37,6 +41,7 @@
         <th>Giới tính</th>
         <th>Đơn vị công tác</th>
         <th>Chức vụ</th>
+        <th th:if="${isManager}">Hành động</th>
     </tr>
     </thead>
     <tbody>
@@ -47,6 +52,12 @@
         <td th:text="${employee.gender}">Nam</td>
         <td th:text="${employee.donvicongtac}">ke toan</td>
         <td th:text="${employee.chucvu}">quan ly</td>
+        <td th:if="${isManager}">
+            <form th:action="@{'/delete/' + ${employee.id}}" method="post"
+                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">
+                <button type="submit">Xóa</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

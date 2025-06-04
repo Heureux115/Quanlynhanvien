@@ -53,4 +53,18 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
+    @Transactional
+    public void deleteById(long id) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
+        if (employee != null) {
+            User user = employee.getUser();
+            if (user != null) {
+                // Gỡ liên kết hai chiều trước khi xoá
+                employee.setUser(null);
+                user.setEmployee(null);
+                userRepository.delete(user);
+            }
+            employeeRepository.delete(employee);
+        }
+    }
 }

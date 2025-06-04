@@ -20,7 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         return new EmployeeUserDetails(user);
     }
 }

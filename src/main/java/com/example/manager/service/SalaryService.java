@@ -22,32 +22,6 @@ public class SalaryService {
         return employeeRepository.findById(id);
     }
 
-    public String updateSalaryDays(Long employeeId, int ngayLam, int ngayNghi) {
-        Optional<Employee> optEmp = employeeRepository.findById(employeeId);
-        if (optEmp.isEmpty()) {
-            return "NOT_FOUND";
-        }
-        Employee employee = optEmp.get();
-
-        Salary salary = salaryRepository.findByEmployee(employee)
-                .orElseGet(() -> {
-                    Salary s = new Salary();
-                    s.setEmployee(employee);
-                    s.setNgaylam(0);
-                    s.setNgaynghi(0);
-                    s.setLuongcoban(0);
-                    s.setThue(0);
-                    s.setHesoluong(1);
-                    return s;
-                });
-
-        salary.setNgaylam(ngayLam);
-        salary.setNgaynghi(ngayNghi);
-
-        salaryRepository.save(salary);
-
-        return "SUCCESS";
-    }
     public String addSalary(Long employeeId) {
         Optional<Employee> optEmp = employeeRepository.findById(employeeId);
         Employee employee = optEmp.get();
@@ -66,5 +40,8 @@ public class SalaryService {
         salaryRepository.save(salary);
 
         return "SUCCESS";
+    }
+    public Salary saveSalary(Salary salary) {
+        return salaryRepository.save(salary);
     }
 }
