@@ -26,6 +26,11 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/home")
+    public String showhome() {
+        return "home";
+    }
+
 
     @GetMapping("/")
     public String home() {

@@ -22,6 +22,10 @@ public class SalaryService {
         return employeeRepository.findById(id);
     }
 
+    public Optional<Salary> findByEmployee(Employee employee) {
+        return salaryRepository.findByEmployee(employee);
+    }
+
     public String addSalary(Long employeeId) {
         Optional<Employee> optEmp = employeeRepository.findById(employeeId);
         Employee employee = optEmp.get();

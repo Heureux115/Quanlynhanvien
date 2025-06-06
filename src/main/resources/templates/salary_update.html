@@ -28,7 +28,7 @@
 <body>
 <h2>Cập nhật ngày làm và ngày nghỉ của nhân viên</h2>
 
-<form th:action="@{/salary/update}" method="post">
+<form th:action="@{/employee/update/salary}" method="post">
   <label>ID nhân viên:</label>
   <input type="number" id="employeeId" name="employeeId" oninput="fetchEmployeeName()" required />
   <span id="employeeName" style="margin-left: 10px; font-weight: bold; color: blue;"
