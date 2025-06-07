@@ -17,4 +17,5 @@ public interface SalaryRepository extends JpaRepository<Salary, Long> {
     @Query("SELECT s FROM Salary s WHERE s.month = :month AND s.year = :year")
     List<Salary> findByMonthAndYear(@Param("month") int month, @Param("year") int year);
     Optional<Salary> findByEmployeeAndMonthAndYear(Employee employee, int month, int year);
+    List<Salary> findByEmployeeUserIdAndMonthAndYear(Long employeeId, int month, int year);
 }

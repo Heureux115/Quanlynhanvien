@@ -2,10 +2,13 @@ package com.example.manager.controller;
 
 import com.example.manager.entity.Employee;
 import com.example.manager.entity.Salary;
+import com.example.manager.entity.User;
 import com.example.manager.repository.SalaryRepository;
-import com.example.manager.service.EmployeeService;
+import com.example.manager.repository.UserRepository;
 import com.example.manager.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class SalaryController {
     private SalaryService salaryService;
 
     @Autowired
-    private EmployeeService employeeService;
+    private UserRepository userRepository;
 
     @GetMapping("/view")
     public String viewSalary(@RequestParam(value = "month", required = false) Integer month,
@@ -47,6 +50,44 @@ public class SalaryController {
         model.addAttribute("year", year);
 
         return "salary_view";
+    }
+
+    @GetMapping("/personal")
+    public String viewPersonalSalary(
+            @RequestParam(value = "month", required = false) Integer month,
+            @RequestParam(value = "year", required = false) Integer year,
+            Model model,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.UserDetails userDetails
+    ) {
+        if (month == null) month = 1;
+        if (year == null) year = 2025;
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+        Employee employee = user.getEmployee();
+        if (employee == null) {
+            model.addAttribute("error", "Tài khoản chưa được gán cho nhân viên nào.");
+            return "salary_personal";
+        }
+
+        Optional<Salary> salaryOpt = salaryService.findByEmployeeAndMonthAndYear(employee, month, year);
+
+        Salary salaries = salaryOpt.orElse(new Salary());
+
+        Map<Long, Double> personalMap = new HashMap<>();
+            double luong = salaryService.tinhLuong(salaries);
+            personalMap.put(salaries.getId(), luong);
+
+
+        model.addAttribute("salaries", salaries);
+        model.addAttribute("personalMap", personalMap);
+        model.addAttribute("month", month);
+        model.addAttribute("year", year);
+
+        return "salary_personal";
     }
 
 
@@ -76,7 +117,7 @@ public class SalaryController {
         Optional<Salary> salaryOpt = salaryService.findByEmployeeAndMonthAndYear(employee, thang, nam);
 
         Salary salary = salaryOpt.orElse(new Salary());
-        
+
         salary.setEmployee(employee);
         salary.setHesoluong(hesoluong);
         salary.setThue(thuePercent / 100.0);
@@ -109,6 +150,5 @@ public class SalaryController {
         }
         return result;
     }
-
 
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lương Cá Nhân</title>
+  <style>
+    table {
+      width: 90%;
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+
+    th, td {
+      border: 1px solid #888;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .back-home {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<h2 style="text-align: center;">Xem bảng lương cá nhân</h2>
+
+<form method="get" th:action="@{/salary/personal}" style="text-align: center; margin-bottom: 20px;">
+  <label>Tháng:
+    <select name="month">
+      <option th:each="i : ${#numbers.sequence(1,12)}"
+              th:value="${i}"
+              th:text="${i}"
+              th:selected="${i == month}">
+      </option>
+    </select>
+  </label>
+
+  <label>Năm:
+    <select name="year">
+      <option th:each="y : ${#numbers.sequence(2020,2030)}"
+              th:value="${y}"
+              th:text="${y}"
+              th:selected="${y == year}">
+      </option>
+    </select>
+  </label>
+
+  <button type="submit">Xem lương</button>
+</form>
+
+<hr/>
+
+<h3>Lương tháng [[${month}]]/[[${year}]]</h3>
+
+<table border="1" th:if="${salaries != null and salaries.id != null}">
+  <thead>
+  <tr>
+    <th>Tên</th>
+    <th>Ngày làm</th>
+    <th>Ngày nghỉ</th>
+    <th>Lương cơ bản</th>
+    <th>Hệ số lương</th>
+    <th>Thuế (%)</th>
+    <th>Lương thực nhận</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td th:text="${salaries.employee.name}"></td>
+    <td th:text="${salaries.ngaylam}">0</td>
+    <td th:text="${salaries.ngaynghi}">0</td>
+    <td th:text="${salaries.luongcoban}">0</td>
+    <td th:text="${salaries.hesoluong}">0</td>
+    <td th:text="${salaries.thue * 100} + '%'">0%</td>
+    <td th:text="${personalMap[salaries.id]}">0</td>
+  </tr>
+  </tbody>
+</table>
+
+<p th:if="${salaries == null or salaries.id == null}" style="color: red; font-weight: bold;">
+  Không có dữ liệu lương trong tháng này.
+</p>
+
+<div class="back-home" style="margin-top: 20px;">
+  <a th:href="@{/}">Quay lại trang chính</a>
+</div>
+</body>
+</html>

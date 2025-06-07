@@ -7,6 +7,7 @@ import com.example.manager.repository.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Types.NULL;
@@ -67,4 +68,9 @@ public class SalaryService {
     public Optional<Salary> findByEmployeeAndMonthAndYear(Employee employee, int month, int year) {
         return salaryRepository.findByEmployeeAndMonthAndYear(employee, month, year);
     }
+
+    public List<Salary> getSalariesByUserAndMonthYear(long employeeId, int month, int year) {
+        return salaryRepository.findByEmployeeUserIdAndMonthAndYear(employeeId, month, year);
+    }
+
 }
