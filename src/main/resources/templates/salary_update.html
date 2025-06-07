@@ -10,7 +10,7 @@
         document.getElementById("employeeName").innerText = "";
         return;
       }
-      fetch(`/employee/employeeName?employeeId=${employeeId}`)
+      fetch(`/salary/employeeName?employeeId=${employeeId}`)
               .then(response => response.json())
               .then(data => {
                 if (data.exists) {
@@ -28,11 +28,19 @@
 <body>
 <h2>Cập nhật ngày làm và ngày nghỉ của nhân viên</h2>
 
-<form th:action="@{/employee/update/salary}" method="post">
+<form th:action="@{/salary/update}" method="post">
   <label>ID nhân viên:</label>
   <input type="number" id="employeeId" name="employeeId" oninput="fetchEmployeeName()" required />
   <span id="employeeName" style="margin-left: 10px; font-weight: bold; color: blue;"
         th:text="${employeeName}"></span>
+  <br/><br/>
+
+  <label>Tháng:</label>
+  <input type="number" name="thang" required min="0" />
+  <br/><br/>
+
+  <label>Năm:</label>
+  <input type="number" name="nam" required min="0" />
   <br/><br/>
 
   <label>Số ngày làm:</label>

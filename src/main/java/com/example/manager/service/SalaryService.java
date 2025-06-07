@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static java.sql.Types.NULL;
+
 @Service
 public class SalaryService {
 
@@ -18,12 +20,12 @@ public class SalaryService {
     @Autowired
     private SalaryRepository salaryRepository;
 
-    public Optional<Employee> findEmployeeById(Long id) {
-        return employeeRepository.findById(id);
-    }
-
     public Optional<Salary> findByEmployee(Employee employee) {
         return salaryRepository.findByEmployee(employee);
+    }
+
+    public Optional<Employee> findEmployeeById(Long id) {
+        return employeeRepository.findById(id);
     }
 
     public String addSalary(Long employeeId) {
@@ -38,6 +40,8 @@ public class SalaryService {
                     s.setLuongcoban(100000);
                     s.setThue(0.05);
                     s.setHesoluong(1);
+                    s.setMonth(NULL);
+                    s.setYear(NULL);
                     return s;
                 });
 
@@ -45,7 +49,22 @@ public class SalaryService {
 
         return "SUCCESS";
     }
+
+    public double tinhLuong(Salary salary) {
+        double luongNgay = salary.getLuongcoban();
+        double phatNgayNghi = luongNgay * 0.5;
+        double tong = ((luongNgay * salary.getNgaylam()) - (salary.getNgaynghi() * phatNgayNghi)) * salary.getHesoluong();
+        if (tong < 0) tong = 0;
+        double thuePhanTram = salary.getThue();
+        tong = tong - (tong * thuePhanTram);
+        tong = tong * salary.getHesoluong();
+        return tong;
+    }
     public Salary saveSalary(Salary salary) {
         return salaryRepository.save(salary);
+    }
+
+    public Optional<Salary> findByEmployeeAndMonthAndYear(Employee employee, int month, int year) {
+        return salaryRepository.findByEmployeeAndMonthAndYear(employee, month, year);
     }
 }

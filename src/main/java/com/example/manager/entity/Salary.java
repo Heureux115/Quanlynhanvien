@@ -15,6 +15,8 @@ public class Salary {
     private int luongcoban; //theo ngay
     private double thue;
     private double hesoluong;
+    private int month;
+    private int year;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -23,12 +25,14 @@ public class Salary {
     public Salary() {
     }
 
-    public Salary(int ngaylam, int ngaynghi, int luongcoban, double thue, double hesoluong) {
+    public Salary(int ngaylam, int ngaynghi, int luongcoban, double thue, double hesoluong, int month, int year) {
         this.ngaylam = ngaylam;
         this.ngaynghi = ngaynghi;
         this.luongcoban = luongcoban;
         this.thue = thue;
         this.hesoluong = hesoluong;
+        this.month = month;
+        this.year = year;
     }
 
     public long getId() {
@@ -80,5 +84,21 @@ public class Salary {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 }

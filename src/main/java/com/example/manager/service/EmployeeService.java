@@ -6,8 +6,8 @@ import com.example.manager.entity.User;
 import com.example.manager.repository.EmployeeRepository;
 import com.example.manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -25,16 +25,6 @@ public class EmployeeService {
     private UserRepository userRepository;
 
 
-    public double tinhLuong(Salary salary) {
-        double luongNgay = salary.getLuongcoban();
-        double phatNgayNghi = luongNgay * 0.5;
-        double tong = ((luongNgay * salary.getNgaylam()) - (salary.getNgaynghi() * phatNgayNghi)) * salary.getHesoluong();
-        if (tong < 0) tong = 0;
-        double thuePhanTram = salary.getThue();
-        tong = tong - (tong * thuePhanTram);
-        tong = tong * salary.getHesoluong();
-        return tong;
-    }
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
@@ -45,8 +35,6 @@ public class EmployeeService {
         String defaultPassword = passwordEncoder.encode("123456");
 
         User user = new User(username, defaultPassword);
-
-        // Liên kết 2 chiều
         employee.setUser(user);
         user.setEmployee(employee);
         userRepository.save(user);

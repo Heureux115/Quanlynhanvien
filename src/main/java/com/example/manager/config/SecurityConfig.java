@@ -36,8 +36,8 @@ public class SecurityConfig {
         http
                 .authenticationProvider(daoAuthProvider()) // cấu hình Provider tại đây
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/employee/**").hasRole("QUANLY")
-                        .requestMatchers("/salaries/**").hasAnyRole("QUANLY", "NHANVIEN")
+                        .requestMatchers("/manager/**").hasRole("QUANLY")
+                        .requestMatchers("/staff/**").hasAnyRole("QUANLY", "NHANVIEN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

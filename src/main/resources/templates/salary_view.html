@@ -28,6 +28,27 @@
 </head>
 <body>
 <h2 style="text-align: center;">BẢNG LƯƠNG NHÂN VIÊN</h2>
+
+<form th:action="@{/salary/view}" method="get" style="text-align: center; margin-bottom: 20px;">
+    <label for="month">Tháng:</label>
+    <select name="month" id="month" required>
+        <option th:each="m : ${#numbers.sequence(1,12)}"
+                th:value="${m}"
+                th:text="'Tháng ' + ${m}"
+                th:selected="${m == month}">Tháng</option>
+    </select>
+
+    <label for="year">Năm:</label>
+    <select name="year" id="year" required>
+        <option th:each="y : ${#numbers.sequence(2020, 2030)}"
+                th:value="${y}"
+                th:text="${y}"
+                th:selected="${y == year}">2025</option>
+    </select>
+
+    <button type="submit">Xem</button>
+</form>
+
 <table>
     <thead>
     <tr>

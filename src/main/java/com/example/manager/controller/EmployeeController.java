@@ -7,15 +7,18 @@ import com.example.manager.entity.Salary;
 import com.example.manager.repository.EmployeeRepository;
 import com.example.manager.service.EmployeeService;
 import com.example.manager.service.SalaryService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -37,7 +40,7 @@ public class EmployeeController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("employee", new Employee());
-        return "employee_add";
+        return "employee_add"   ;
     }
 
     @PostMapping("/add")
@@ -51,61 +54,19 @@ public class EmployeeController {
         model.addAttribute("employee", new Employee()); // reset form
         return "employee_add";
     }
-    @GetMapping("/update/salary")
-    public String showUpdateForm() {
-        return "salary_update";
+    @GetMapping("/view")
+    public String showAllEmployees(Model model, HttpServletRequest request) {
+        List<Employee> employees = employeeService.getAllEmployees();
+        model.addAttribute("employees", employees);
+        boolean isManager = request.isUserInRole("QUANLY");
+        model.addAttribute("isManager", isManager);
+        return "employee_view";
     }
-
-    @PostMapping("/update/salary")
-    public String addSalary(@RequestParam Long employeeId,
-                            @RequestParam("hesoluong") double hesoluong,
-                            @RequestParam("thue") double thue,
-                            @RequestParam("ngaylam") int ngaylam,
-                            @RequestParam("ngaynghi") int ngaynghi,
-                            Model model) {
-
-        Optional<Employee> empOpt = salaryService.findEmployeeById(employeeId);
-        if (empOpt.isEmpty()) {
-            model.addAttribute("message", "Không tìm thấy nhân viên với ID: " + employeeId);
-            return "salary_update";
-        }
-
-        Employee employee = empOpt.get();
-
-        // Tìm bản ghi Salary, nếu không có thì tạo mới
-        Salary salary = salaryService.findByEmployee(employee)
-                .orElse(new Salary());
-
-        // Gán dữ liệu mới
-        salary.setEmployee(employee);
-        salary.setHesoluong(hesoluong);
-        salary.setThue(thue / 100); // Nếu nhập phần trăm từ form
-        salary.setNgaylam(ngaylam);
-        salary.setNgaynghi(ngaynghi);
-
-        // Không cần setLuongcoban nữa
-
-        double tongLuong = employeeService.tinhLuong(salary);
-
-        salaryService.saveSalary(salary);
-
-        model.addAttribute("message", "Cập nhật lương cho nhân viên '" + employee.getName() + "' thành công. Lương thực nhận: " + tongLuong);
-        return "salary_update";
-    }
-
-
-    @GetMapping("/employeeName")
-    @ResponseBody
-    public Map<String, Object> getEmployeeName(@RequestParam Long employeeId) {
-        Optional<Employee> empOpt = salaryService.findEmployeeById(employeeId);
-        Map<String, Object> result = new HashMap<>();
-        if (empOpt.isPresent()) {
-            result.put("exists", true);
-            result.put("name", empOpt.get().getName());
-        } else {
-            result.put("exists", false);
-        }
-        return result;
+    @PostMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable("id") long id, RedirectAttributes redirectAttributes) {
+        employeeService.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "Xóa nhân viên thành công!");
+        return "redirect:/view";
     }
 
 }
