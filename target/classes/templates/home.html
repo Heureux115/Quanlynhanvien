@@ -3,26 +3,80 @@
 <head>
     <title>Trang chủ</title>
     <meta charset="UTF-8" />
+    <style>
+        .big {
+            text-align: center;
+            margin: 20px auto;
+        }
+        .small{
+            text-align: center;
+            margin: 20px auto;
+
+        }
+        nav ul{
+            list-style-type: none;
+            text-align: center;
+            margin-top: 35px;
+        }
+        nav ul li{
+            margin-bottom: 20px;
+        }
+        nav ul li button{
+            width: 300px;
+            height: 30px;
+        }
+    </style>
 </head>
 <body>
-<h1>Chào mừng đến với hệ thống Quản lý Nhân viên</h1>
+<h1 class = "big">Chào mừng đến với hệ thống Quản lý Nhân viên</h1>
+<br/>
+<h2 class = "small">Vui lòng chọn 1 tác vụ để tiếp tục:</h2>
 <div th:if="${param.error}">
-    <p style="color:red;">Bạn không đủ quyền truy cập!</p>
+    <p style="color:red;text-align: center;">Bạn không đủ quyền truy cập!</p>
 </div>
-
-<ul>
-    <li><a th:href="@{/user/change-username}">Đổi tên đăng nhập</a></li>
-    <li><a th:href="@{/password/change}">Đổi mật khẩu</a></li>
-    <li><a th:href="@{/salary/personal}">Lương cá nhân</a></li>
-    <li><a th:href="@{/employee/view}">Xem nhân viên</a></li>
-    <li><a th:href="@{/employee/add}">Thêm nhân viên</a></li>
-    <li><a th:href="@{/salary/update}">Cập nhật lương nhân viên</a></li>
-    <li><a th:href="@{/salary/view}">Xem bảng lương</a></li>
-    <li>
-        <form th:id="'logoutForm'" th:action="@{/logout}" method="post" style="display:none;"></form>
-        <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Đăng xuất</a>
-    </li>
-</ul>
+<nav class = "list">
+    <ul>
+        <li>
+            <form th:action = "@{/user/change-username}" method = "get">
+                <button type = "submit">Đổi tên đăng nhập</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/password/change}" method = "get">
+                <button type = "submit">Đổi mật khẩu</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/salary/personal}" method = "get">
+                <button type = "submit">Lương cá nhân</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/employee/view}" method = "get">
+                <button type = "submit">Xem nhân viên</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/employee/add}" method = "get">
+                <button type = "submit">Thêm nhân viên</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/salary/update}" method = "get">
+                <button type = "submit">Cập nhật lương nhân viên</button>
+            </form>
+        </li>
+        <li>
+            <form th:action = "@{/salary/view}" method = "get">
+                <button type = "submit">Xem bảng lương</button>
+            </form>
+        </li>
+        <li>
+            <form th:id="'logoutForm'" th:action="@{/logout}" method="post" style="display:none;"></form>
+            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Đăng xuất</a>
+        </li>
+    </ul>
+</nav>
 </body>
 </html>
 

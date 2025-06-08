@@ -2,11 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Lương Cá Nhân</title>
-  <meta charset="UTF-8" />
-</head>
-<body><h2>Xem bảng lương cá nhân</h2>
+  <meta charset="UTF-8"/>
+  <style>
+    table {
+      width: 90%;
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
 
-<form method="get" action="/salary/personal">
+    th, td {
+      border: 1px solid #888;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .back-home {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<h2 style="text-align: center;">Xem bảng lương cá nhân</h2>
+
+<form method="get" action="/salary/personal" style="text-align: center; margin-bottom: 20px;">
   <label>Tháng:
     <select name="month">
       <option th:each="i : ${#numbers.sequence(1,12)}"
@@ -30,28 +53,40 @@
 
 <h3>Lương tháng [[${month}]]/[[${year}]]</h3>
 
-<table border="1">
-  <thead>
-  <tr>
-    <th>Ngày làm</th>
-    <th>Ngày nghỉ</th>
-    <th>Lương cơ bản</th>
-    <th>Hệ số</th>
-    <th>Thuế (%)</th>
-    <th>Lương thực nhận</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="salary : ${salaries}">
-    <td th:text="${salary.ngaylam}"></td>
-    <td th:text="${salary.ngaynghi}"></td>
-    <td th:text="${salary.luongcoban}"></td>
-    <td th:text="${salary.hesoluong}"></td>
-    <td th:text="${salary.thue * 100} + '%'"></td>
-    <td th:text="${luongMap[salary.id]}"></td>
-  </tr>
-  <tr th:if="${#lists.isEmpty(salaries)}">
-    <td colspan="6">Không có dữ liệu lương trong tháng này.</td>
-  </tr>
-  </tbody>
-</table>
+<div th:if="${personalMap != null and salaries != null and salaries.id != null}">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Ngày làm</th>
+      <th>Ngày nghỉ</th>
+      <th>Lương cơ bản</th>
+      <th>Hệ số</th>
+      <th>Thuế (%)</th>
+      <th>Lương thực nhận</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${salaries.ngaylam}">-</td>
+      <td th:text="${salaries.ngaynghi}">-</td>
+      <td th:text="${salaries.luongcoban}">-</td>
+      <td th:text="${salaries.hesoluong}">-</td>
+      <td th:text="${salaries.thue * 100} + '%'">-</td>
+      <td th:text="${personalMap[salaries.id]}">-</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:if="${salaries == null or salaries.id == null}">
+  <p>Không có dữ liệu lương trong tháng này.</p>
+</div>
+
+<div th:if="${error != null}">
+  <p th:text="${error}" style="color:red;"></p>
+</div>
+<div class="back-home">
+  <a th:href="@{/}">Quay lại trang chính</a>
+</div>
+</body>
+</html>

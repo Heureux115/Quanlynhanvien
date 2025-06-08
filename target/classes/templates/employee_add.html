@@ -3,49 +3,105 @@
 <head>
   <title>Thêm nhân viên</title>
   <meta charset="UTF-8">
+  <style>
+    body{
+      background-color: #A9A9A9;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    #big{
+      margin:auto;
+      text-align: center;
+      justify-content: center;
+      width: 400px;
+      height: 500px;
+      border: 2px solid #f5f5f5;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .form{
+      margin-top: 15px;
+      padding-left: 10px;
+      height: 25px;
+      width: 300px;
+    }
+    button{
+      margin-top: 20px;
+      height: 35px;
+    }
+    .back-home{
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
+<div id = "big">
 <h2>Thêm nhân viên và tạo tài khoản</h2>
-
 <div th:if="${message}" style="color: green;">
   <p th:text="${message}"></p>
 </div>
 
 <form th:action="@{/employee/add}" th:object="${employee}" method="post">
 
-  <label>Tên nhân viên:</label>
-  <input type="text" th:field="*{name}" required/><br/>
+  <label></label>
+  <input
+          type="text" th:field="*{name}"
+          class = "form"
+          placeholder="Nhập tên nhân viên"
+          required
+  />
+  <br/>
 
-  <label>Tuổi:</label>
-  <input type="number" th:field="*{age}" required/><br/>
+  <label></label>
+  <input
+         type="number" th:field="*{age}"
+         placeholder="Nhập tuổi"
+         class = "form"
+         required
+  />
+  <br/>
 
-  <label>Giới tính:</label>
-  <select th:field="*{gender}" required>
+  <select class = "form" th:field="*{gender}" required>
     <option value="">-- Chọn giới tính --</option>
     <option value="Nam">Nam</option>
     <option value="Nữ">Nữ</option>
     <option value="Khác">Khác</option>
-  </select><br/>
+  </select>
+  <br/>
 
-  <label>Đơn vị công tác:</label>
-  <input type="text" th:field="*{donvicongtac}" required/><br/>
+  <label></label>
+  <input
+          type="text" th:field="*{donvicongtac}"
+          placeholder="Nhập tên đăng nhập"
+          class = "form"
+          required
+  />
+  <br/>
 
-  <label>Chức vụ:</label>
-  <select th:field="*{chucvu}" required>
-    <option value="" disabled selected>-- Chọn chức vụ --</option>
+
+  <select class = "form" th:field="*{chucvu}" required>
+    <option value="" >-- Chọn chức vụ --</option>
     <option value="NHANVIEN">Nhân viên</option>
     <option value="QUANLY">Quản lý</option>
   </select><br/>
 
-  <label>Tên đăng nhập:</label>
-  <input type="text" name="username" required/><br/>
+  <label></label>
+  <input
+          type="text" name="username"
+          placeholder="Nhập tên đăng nhập"
+          class = "form"
+          required
+  />
+  <br/>
 
   <button type="submit">Thêm nhân viên</button>
 </form>
-
 <div class="back-home">
   <a th:href="@{/}">Quay lại trang chính</a>
 </div>
-
+</div>
 </body>
 </html>

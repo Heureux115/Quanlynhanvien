@@ -3,19 +3,67 @@
 <head>
     <title>Đăng nhập</title>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body{
+            background-color: #A9A9A9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        #big{
+            margin:auto;
+            text-align: center;
+            justify-content: center;
+            width: 400px;
+            height: 350px;
+            border: 2px solid #f5f5f5;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .login_form{
+            margin-top: 20px;
+            padding-left: 10px;
+            height: 40px;
+        }
+        button{
+            margin-top: 30px;
+            height: 35px;
+        }
+    </style>
 </head>
 <body>
-<h1>Đăng nhập</h1>
+<div id = "big">
+    <h1 id = "h1">Login</h1>
 
-<!-- Hiển thị thông báo lỗi nếu có -->
-<div th:if="${param.error}">
-    <p style="color:red;">Tên đăng nhập hoặc mật khẩu không đúng</p>
+    <div th:if="${param.error}">
+        <p style="color:red;">Tên đăng nhập hoặc mật khẩu không đúng</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <label></label>
+        <input
+                type="text" name="username"
+                placeholder="Tên đăng nhập"
+                class = "login_form"
+                size = "40"
+                required
+        />
+        <br/>
+        <label></label>
+        <input
+                type="password" name="password"
+                placeholder="Mật khẩu"
+                class = "login_form"
+                size = "40"
+                required
+        />
+        <br/>
+        <button type="submit">Đăng nhập</button>
+    </form>
 </div>
-
-<form th:action="@{/login}" method="post">
-    <label>Tên đăng nhập: <input type="text" name="username"/></label><br/>
-    <label>Mật khẩu: <input type="password" name="password"/></label><br/>
-    <button type="submit">Đăng nhập</button>
-</form>
 </body>
 </html>
