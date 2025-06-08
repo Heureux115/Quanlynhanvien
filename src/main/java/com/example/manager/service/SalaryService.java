@@ -58,7 +58,6 @@ public class SalaryService {
         if (tong < 0) tong = 0;
         double thuePhanTram = salary.getThue();
         tong = tong - (tong * thuePhanTram);
-        tong = tong * salary.getHesoluong();
         return tong;
     }
     public Salary saveSalary(Salary salary) {
