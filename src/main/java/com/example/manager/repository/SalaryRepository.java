@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface SalaryRepository extends JpaRepository<Salary, Long> {
-    List<Salary> findByEmployeeId(Long employeeId);
     Optional<Salary> findByEmployee(Employee employee);
     @Query("SELECT s FROM Salary s WHERE s.month = :month AND s.year = :year")
     List<Salary> findByMonthAndYear(@Param("month") int month, @Param("year") int year);

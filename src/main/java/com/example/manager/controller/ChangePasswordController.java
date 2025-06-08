@@ -46,7 +46,6 @@ public class ChangePasswordController {
             return "change_password";
         }
 
-        // Cập nhật mật khẩu mới đã mã hóa
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 

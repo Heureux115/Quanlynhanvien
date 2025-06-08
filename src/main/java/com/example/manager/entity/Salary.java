@@ -38,66 +38,50 @@ public class Salary {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public int getNgaylam() {
         return ngaylam;
     }
-
     public void setNgaylam(int ngaylam) {
         this.ngaylam = ngaylam;
     }
-
     public int getNgaynghi() {
         return ngaynghi;
     }
-
     public void setNgaynghi(int ngaynghi) {
         this.ngaynghi = ngaynghi;
     }
-
     public int getLuongcoban() {
         return luongcoban;
     }
-
     public void setLuongcoban(int luongcoban) {
         this.luongcoban = luongcoban;
     }
-
     public double getThue() {
         return thue;
     }
-
     public void setThue(double thue) {
         this.thue = thue;
     }
-
     public double getHesoluong() {return hesoluong;}
     public void setHesoluong(double hesoluong) {this.hesoluong = hesoluong;}
-
     public Employee getEmployee() {
         return employee;
     }
-
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-
     public int getYear() {
         return year;
     }
-
     public void setYear(int year) {
         this.year = year;
     }
-
     public int getMonth() {
         return month;
     }
-
     public void setMonth(int month) {
         this.month = month;
     }

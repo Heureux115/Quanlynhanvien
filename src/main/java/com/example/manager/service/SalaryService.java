@@ -21,10 +21,6 @@ public class SalaryService {
     @Autowired
     private SalaryRepository salaryRepository;
 
-    public Optional<Salary> findByEmployee(Employee employee) {
-        return salaryRepository.findByEmployee(employee);
-    }
-
     public Optional<Employee> findEmployeeById(Long id) {
         return employeeRepository.findById(id);
     }

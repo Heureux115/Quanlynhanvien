@@ -7,14 +7,11 @@ import com.example.manager.repository.SalaryRepository;
 import com.example.manager.repository.UserRepository;
 import com.example.manager.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
@@ -138,8 +135,6 @@ public class SalaryController {
         model.addAttribute("message", "Cập nhật lương cho nhân viên '" + employee.getName() + "' thành công. Lương thực nhận: " + tongLuong);
         return "salary_update";
     }
-
-
 
     @GetMapping("/employeeName")
     @ResponseBody

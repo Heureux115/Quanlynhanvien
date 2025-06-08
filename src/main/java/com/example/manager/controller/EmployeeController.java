@@ -54,6 +54,7 @@ public class EmployeeController {
         model.addAttribute("employee", new Employee()); // reset form
         return "employee_add";
     }
+
     @GetMapping("/view")
     public String showAllEmployees(Model model, HttpServletRequest request) {
         List<Employee> employees = employeeService.getAllEmployees();
@@ -62,6 +63,7 @@ public class EmployeeController {
         model.addAttribute("isManager", isManager);
         return "employee_view";
     }
+
     @PostMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable("id") long id, RedirectAttributes redirectAttributes) {
         employeeService.deleteById(id);

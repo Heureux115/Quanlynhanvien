@@ -23,7 +23,6 @@ public class ChangeUsernameController {
         return "change_username";
     }
 
-
     @PostMapping("/change-username")
     public String changePassword(@RequestParam("newUsername") String newUsername,
                                  Model model) {
