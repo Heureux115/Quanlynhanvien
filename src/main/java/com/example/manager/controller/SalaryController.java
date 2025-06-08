@@ -52,7 +52,7 @@ public class SalaryController {
         return "salary_view";
     }
 
-    @GetMapping("/salary/personal")
+    @GetMapping("/personal")
     public String viewPersonalSalary(
             @RequestParam(value = "month", required = false) Integer month,
             @RequestParam(value = "year", required = false) Integer year,
@@ -73,18 +73,17 @@ public class SalaryController {
             return "salary_personal";
         }
 
-        Long employeeId = employee.getId();
+        Optional<Salary> salaryOpt = salaryService.findByEmployeeAndMonthAndYear(employee, month, year);
 
-        List<Salary> salaries = salaryService.getSalariesByUserAndMonthYear(employeeId, month, year);
+        Salary salaries = salaryOpt.orElse(new Salary());
 
-        Map<Long, Double> luongMap = new HashMap<>();
-        for (Salary s : salaries) {
-            double luong = salaryService.tinhLuong(s);
-            luongMap.put(s.getId(), luong);
-        }
+        Map<Long, Double> personalMap = new HashMap<>();
+        double luong = salaryService.tinhLuong(salaries);
+        personalMap.put(salaries.getId(), luong);
+
 
         model.addAttribute("salaries", salaries);
-        model.addAttribute("luongMap", luongMap);
+        model.addAttribute("personalMap", personalMap);
         model.addAttribute("month", month);
         model.addAttribute("year", year);
 
@@ -135,6 +134,8 @@ public class SalaryController {
         model.addAttribute("message", "Cập nhật lương cho nhân viên '" + employee.getName() + "' thành công. Lương thực nhận: " + tongLuong);
         return "salary_update";
     }
+
+
 
     @GetMapping("/employeeName")
     @ResponseBody

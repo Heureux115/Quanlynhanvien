@@ -50,7 +50,7 @@
         <td th:text="${employee.name}">Anh</td>
         <td th:text="${employee.age}">20</td>
         <td th:text="${employee.gender}">Nam</td>
-        <td th:text="${employee.donvicongtac}">ke toan</td>
+        <td th:text="${employee.donvicongtac}">kế toán</td>
         <td th:text="${employee.chucvu}">quan ly</td>
         <td th:if="${isManager}">
             <form th:action="@{'/delete/' + ${employee.id}}" method="post"
