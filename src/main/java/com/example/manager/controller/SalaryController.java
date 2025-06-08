@@ -7,11 +7,14 @@ import com.example.manager.repository.SalaryRepository;
 import com.example.manager.repository.UserRepository;
 import com.example.manager.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
@@ -52,7 +55,7 @@ public class SalaryController {
         return "salary_view";
     }
 
-    @GetMapping("/personal")
+    @GetMapping("/salary/personal")
     public String viewPersonalSalary(
             @RequestParam(value = "month", required = false) Integer month,
             @RequestParam(value = "year", required = false) Integer year,
@@ -73,17 +76,18 @@ public class SalaryController {
             return "salary_personal";
         }
 
-        Optional<Salary> salaryOpt = salaryService.findByEmployeeAndMonthAndYear(employee, month, year);
+        Long employeeId = employee.getId();
 
-        Salary salaries = salaryOpt.orElse(new Salary());
+        List<Salary> salaries = salaryService.getSalariesByUserAndMonthYear(employeeId, month, year);
 
-        Map<Long, Double> personalMap = new HashMap<>();
-            double luong = salaryService.tinhLuong(salaries);
-            personalMap.put(salaries.getId(), luong);
-
+        Map<Long, Double> luongMap = new HashMap<>();
+        for (Salary s : salaries) {
+            double luong = salaryService.tinhLuong(s);
+            luongMap.put(s.getId(), luong);
+        }
 
         model.addAttribute("salaries", salaries);
-        model.addAttribute("personalMap", personalMap);
+        model.addAttribute("luongMap", luongMap);
         model.addAttribute("month", month);
         model.addAttribute("year", year);
 

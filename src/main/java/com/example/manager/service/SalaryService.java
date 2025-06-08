@@ -69,8 +69,8 @@ public class SalaryService {
         return salaryRepository.findByEmployeeAndMonthAndYear(employee, month, year);
     }
 
-    public List<Salary> getSalariesByUserAndMonthYear(long employeeId, int month, int year) {
-        return salaryRepository.findByEmployeeUserIdAndMonthAndYear(employeeId, month, year);
+    public List<Salary> getSalariesByUserAndMonthYear(long userId, int month, int year) {
+        return salaryRepository.findByEmployeeUserIdAndMonthAndYear(userId, month, year);
     }
 
 }
